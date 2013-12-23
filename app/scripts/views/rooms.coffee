@@ -2,13 +2,18 @@
 
 class Ocupado.Views.RoomsView extends Backbone.View
 
-    el: '#OcupadoApp'
-    template: JST['app/scripts/templates/rooms.hbs']
+  el: '#OcupadoApp'
 
-    initialize: ->
-      @render()
+  initialize: ->
+    @listenTo @collection, 'add', @addRoom
+    @listenTo @collection, 'reset', @resetRooms
+    @render()
 
-    render: ->
-      @$el.html @template
-        foo: 'bar'
-      @
+  addRoom: (room) ->
+    roomView = new Ocupado.Views.RoomView
+      model: room
+    @$el.append roomView.render().el
+
+  resetRooms: (rooms) ->
+    @collection.each @addRoom, @
+

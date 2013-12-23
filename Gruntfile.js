@@ -58,7 +58,7 @@ module.exports = function (grunt) {
                 files: [
                     '<%= yeoman.app %>/scripts/templates/*.hbs'
                 ],
-                tasks: ['jst']
+                tasks: ['handlebars']
             },
             test: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
@@ -232,10 +232,14 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        jst: {
+        handlebars: {
             compile: {
                 files: {
-                    '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/templates/*.hbs']
+                    '.tmp/scripts/templates.js': ['app/scripts/**/*.hbs']
+                },
+                options: {
+                    namespace: 'Ocupado.Templates',
+                    wrapped: true
                 }
             }
         },
@@ -267,7 +271,7 @@ module.exports = function (grunt) {
                 'clean:server',
                 'coffee',
                 'createDefaultTemplate',
-                'jst',
+                'handlebars',
                 'connect:test',
                 'watch:livereload'
             ]);
@@ -278,7 +282,7 @@ module.exports = function (grunt) {
             'coffee:dist',
             'stylus:compile',
             'createDefaultTemplate',
-            'jst',
+            'handlebars',
             'connect:livereload',
             'watch'
         ]);
@@ -288,7 +292,7 @@ module.exports = function (grunt) {
         'clean:server',
         'coffee',
         'createDefaultTemplate',
-        'jst',
+        'handlebars',
         'connect:test',
         'mocha',
         'watch:test'
@@ -298,7 +302,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'coffee',
         'createDefaultTemplate',
-        'jst',
+        'handlebars',
         'useminPrepare',
         'imagemin',
         'htmlmin',

@@ -1,2 +1,7 @@
-<p>Your content here.</p>
-
+<h1>{{name}}</h1>
+{{#if current}}
+  <h2>Current: {{current.creatorName}}</h2>
+{{/if}}
+{{#if upcoming}}
+  <h3>{{upcoming}}</h3>
+{{/if}}
