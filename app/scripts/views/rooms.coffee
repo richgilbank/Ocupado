@@ -7,6 +7,10 @@ class Ocupado.Views.RoomsView extends Backbone.View
   initialize: ->
     @listenTo @collection, 'add', @addRoom
     @listenTo @collection, 'reset', @resetRooms
+
+    Handlebars.registerPartial('occupied', Ocupado.Templates.occupied)
+    Handlebars.registerPartial('upcoming', Ocupado.Templates.upcoming)
+    Handlebars.registerPartial('vacant', Ocupado.Templates.vacant)
     @render()
 
   addRoom: (room) ->

@@ -9,18 +9,19 @@ class Ocupado.Models.EventModel extends Backbone.RelationalModel
     @get('startDate') <= Date.now() <= @get('endDate')
 
   isUpcoming: ->
-    @get('startDate') <= (new Date()).addHours(1).getTime()
+    inOneHour = (new Date()).addHours(1).getTime()
+    @get('startDate') <= inOneHour and @get('startDate') > Date.now()
 
   initialize: ->
     @on 'event:start', @eventStart, this
     @on 'event:end', @eventEnd, this
 
+    @set 'creatorImage', @creatorImagePath()
+
     if @isOccurring()
       @trigger 'event:start'
     else if @isUpcoming()
-      setTimeout =>
-        @trigger 'event:start'
-      , @get('startDate') - Date.now()
+      @eventUpcoming()
 
   eventStart: ->
     # Fire the event:end event once the time remaining ends
@@ -30,14 +31,29 @@ class Ocupado.Models.EventModel extends Backbone.RelationalModel
     , remaining
 
     # Set interval to update time remaining
+    clearInterval(@intervalRef) if @intervalRef
     @intervalRef = setInterval =>
       @timeRemaining = @get('endDate') - Date.now()
     , 50
     @get('room').trigger('change')
+
+  eventUpcoming: ->
+    # Fire 'event:start' when the time comes
+    setTimeout =>
+      @trigger 'event:start'
+    , @get('startDate') - Date.now()
+
+    # Set interval to update time remaining
+    @intervalRef = setInterval =>
+      @timeRemaining = @get('startDate') - Date.now()
+    , 50
 
   eventEnd: ->
     clearInterval @intervalRef
     thisRoom = @get('room')
     @collection.remove(this)
     thisRoom.trigger('change')
+
+  creatorImagePath: ->
+    "http://www.gravatar.com/avatar/#{md5(@get('creatorEmail'))}?s=220"
 

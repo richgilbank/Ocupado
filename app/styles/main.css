@@ -1,1 +1,11 @@
-body{background:#999}
+
+.occupied{background:#d86248;background:-webkit-gradient(linear,left top,left bottom,color-stop(28%,#d86248),color-stop(60%,#d44543));background:linear-gradient(to bottom,#d86248 28%,#d44543 60%);}
+.upcoming{background:#3e3e3e;background:-webkit-gradient(linear,left top,left bottom,color-stop(28%,#3e3e3e),color-stop(60%,#343434));background:linear-gradient(to bottom,#3e3e3e 28%,#343434 60%);}
+.vacant{background:#b5b44b;background:-webkit-gradient(linear,left top,left bottom,color-stop(28%,#b5b44b),color-stop(60%,#92b142));background:linear-gradient(to bottom,#b5b44b 28%,#92b142 60%);}
+body{background:#000;position:absolute;height:100%;width:100%;margin:0;font-family:'Raleway';font-weight:100}
+h1{font-weight:500}
+#OcupadoApp{display:flex;height:100%;align-items:stretch;}
+#OcupadoApp section{flex:1}
+
+
+

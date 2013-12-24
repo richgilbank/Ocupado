@@ -65,8 +65,8 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
     @get('events').isOccupied()
 
   isUpcoming: ->
-    @get('events').isUpcoming()
+    @get('events').isUpcoming() and !@isOccupied()
 
   isVacant: ->
-    @get('events').isVacant()
+    @get('events').isVacant() and !@isOccupied() and !@isUpcoming()
 

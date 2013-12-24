@@ -239,7 +239,8 @@ module.exports = function (grunt) {
                 },
                 options: {
                     namespace: 'Ocupado.Templates',
-                    wrapped: true
+                    wrapped: true,
+                    partialsUseNamespace: true
                 }
             }
         },

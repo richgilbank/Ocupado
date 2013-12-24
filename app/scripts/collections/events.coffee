@@ -10,7 +10,7 @@ class Ocupado.Collections.EventsCollection extends Backbone.Collection
     @whereUpcoming().length
 
   isVacant: ->
-    @isOccupied() and not @isUpcoming()
+    !@isOccupied() and !@isUpcoming()
 
   whereOccupied: ->
     @filter (event) -> event.isOccurring()
