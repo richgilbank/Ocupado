@@ -1,11 +1,20 @@
+@font-face{font-family:entypo;font-style:normal;font-weight:normal;src:url("../fonts/entypo.woff") format('woff'),url("../fonts/entypo.ttf") format('truetype'),url("../fonts/entypo.svg#font") format('svg')}
+.icon-clock{font-family:entypo;font-size:42px;text-align:center}
+.icon-person{font-family:entypo;font-size:30px}
+.icon-arrow-right{font-family:entypo;font-size:30px;display:inline-block;color:#585858;transform:scale(2,1);-webkit-transform:scale(1,2)}
+
 
 .occupied{background:#d86248;background:-webkit-gradient(linear,left top,left bottom,color-stop(28%,#d86248),color-stop(60%,#d44543));background:linear-gradient(to bottom,#d86248 28%,#d44543 60%);}
 .upcoming{background:#3e3e3e;background:-webkit-gradient(linear,left top,left bottom,color-stop(28%,#3e3e3e),color-stop(60%,#343434));background:linear-gradient(to bottom,#3e3e3e 28%,#343434 60%);}
 .vacant{background:#b5b44b;background:-webkit-gradient(linear,left top,left bottom,color-stop(28%,#b5b44b),color-stop(60%,#92b142));background:linear-gradient(to bottom,#b5b44b 28%,#92b142 60%);}
-body{background:#000;position:absolute;height:100%;width:100%;margin:0;font-family:'Raleway';font-weight:100}
-h1{font-weight:500}
+body{background:#000;position:absolute;height:100%;width:100%;margin:0;font-family:'Raleway';font-weight:100;color:#fff}
+h1{font-weight:500;text-transform:uppercase;font-size:68px;text-align:center}
+img{width:50px;height:50px}
+.time-remaining{font-size:51px;text-align:center}
+.polar-clock-container{position:absolute;width:100%;height:50%;bottom:0;padding:0 50px 70px 50px;box-sizing:border-box}
+.polar-clock{width:100%;height:100%}
 #OcupadoApp{display:flex;height:100%;align-items:stretch;}
-#OcupadoApp section{flex:1}
+#OcupadoApp section{width:0;flex:1;position:relative}
 
 
 

@@ -20,3 +20,21 @@ Date.prototype.addHours= (h) ->
   @setHours this.getHours() + h
   this
 
+window.RaphaelArc = (xloc, yloc, value, total, R) ->
+  alpha = 360 / total * value
+  a = (90 - alpha) * Math.PI / 180
+  x = xloc + R * Math.cos(a)
+  y = yloc - R * Math.sin(a)
+  if total == value
+    path = [
+        ["M", xloc, yloc - R],
+        ["A", R, R, 0, 1, 1, xloc - 0.01, yloc - R]
+    ]
+  else
+    path = [
+        ["M", xloc, yloc - R],
+        ["A", R, R, 0, +(alpha > 180), 1, x, y]
+    ]
+
+  path: path
+

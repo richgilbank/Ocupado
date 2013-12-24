@@ -70,3 +70,10 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
   isVacant: ->
     @get('events').isVacant() and !@isOccupied() and !@isUpcoming()
 
+  percentComplete: ->
+    if @isOccupied()
+      e = @get('events').first()
+      ((Date.now() - e.get('startDate')) / (e.get('endDate') - e.get('startDate'))) * 100
+    else
+      100
+

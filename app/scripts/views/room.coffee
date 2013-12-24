@@ -8,10 +8,16 @@ class Ocupado.Views.RoomView extends Backbone.View
 
   initialize: ->
     @listenTo @model, 'change', @render
-    setInterval =>
-      @render()
-    , 1000
+    @listenTo @model, 'change', @clearPolarClock
     @render()
+    setInterval =>
+      @partialRender()
+      @renderPolarClock()
+    , 1000
+
+  partialRender: ->
+    @$el.find('.time-remaining').text(@timeRemaining())
+    @renderPolarClock()
 
   render: ->
     @$el.html @template(@templateData())
@@ -28,8 +34,7 @@ class Ocupado.Views.RoomView extends Backbone.View
     occupied: @model.isOccupied()
     upcoming: @model.isUpcoming()
     vacant: @model.isVacant()
-    timeRemaining: do =>
-      @timeRemaining()
+    timeRemaining: do => @timeRemaining()
     name: @model.get('name')
     event: @model.get('events').first().toJSON() if not @model.isVacant()
 
@@ -39,4 +44,41 @@ class Ocupado.Views.RoomView extends Backbone.View
       toReadableTime(remaining)
     else
       '00:00:00'
+
+  initializeRaphael: ->
+    @canvasContainer = $("#canvas#{@model.get('name')}")
+    @maxRadius = _.min([@canvasContainer.width(), @canvasContainer.height()])/2 - 7
+    @arcPos = @maxRadius + 8
+    @paper = Raphael(
+      "canvas#{@model.get('name')}",
+      @maxRadius*2 + 15,
+      @maxRadius*2 + 15
+    )
+    @paper.customAttributes.arc = RaphaelArc
+
+    bgColor = "#7e9c3d" if @model.isVacant()
+    bgColor = "#d5b430" if @model.isUpcoming()
+    bgColor = "#a03a3a" if @model.isOccupied()
+
+    @bgarc = @paper.path().attr
+      "stroke": bgColor
+      "stroke-width": 15
+      arc: [@arcPos, @arcPos, 100, 100, @maxRadius]
+
+    if @model.isOccupied()
+      @arc = @paper.path().attr
+        "stroke": "#f00"
+        "stroke-width": 15
+        arc: [@arcPos, @arcPos, 0, 100, @maxRadius]
+
+  renderPolarClock: ->
+    if !@paper?
+      @initializeRaphael()
+
+    if @model.isOccupied()
+      @arc.attr
+        arc: [@arcPos, @arcPos, @model.percentComplete(), 100, @maxRadius]
+
+  clearPolarClock: ->
+    @paper = undefined
 

@@ -1,4 +1,18 @@
-<i class="ico ico-clock"></i>
+<div class="icon-clock">&#128340;</div>
+
 <div class="time-remaining">{{timeRemaining}}</div>
+
 <h1>{{name}}</h1>
-<div class="up-next">Up Next: {{event.creatorName}}</div>
+
+<div class="up-next">
+  Up Next
+  <span class="icon-arrow-right">&#59238;</span>
+  <span class="icon-person">&#128100;</span>
+  {{event.creatorName}}
+</div>
+
+<div class="polar-clock-container">
+  <div class="polar-clock" id="canvas{{name}}"></div>
+  <div class="room-status-text">próximo</div>
+</div>
+
