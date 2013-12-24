@@ -6,14 +6,17 @@ class Ocupado.Views.RoomView extends Backbone.View
 
   initialize: ->
     @listenTo @model, 'change', @render
+    @listenTo @model, 'event:end', @render
     @render()
 
   render: ->
     @$el.html @template(@model.toJSON())
     @$el.prop('class', '')
-    if @model.get 'current'
+    if @model.isOccupied()
       @$el.addClass('occupied')
-    else if @model.get 'upcoming'
+    else if @model.isUpcoming()
       @$el.addClass('upcoming')
+    else
+      @$el.addClass('vacant')
     @
 

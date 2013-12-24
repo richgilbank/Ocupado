@@ -21,6 +21,11 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
 
   initialize: ->
     @fetch()
+
+    # Refetch every 10 minutes
+    setInterval =>
+      @fetch()
+    , 10 * 60 * 1000
     @
 
   fetch: (options) ->
@@ -53,11 +58,15 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
       endDate: Date.parse(event.end.dateTime)
       creatorName: event.creator.displayName
       creatorEmail: event.creator.email
+      name: event.summary
       room: this
 
   isOccupied: ->
-    !!@get('events').whereOccupied().length
+    @get('events').isOccupied()
 
   isUpcoming: ->
-    !!@get('events').whereUpcoming().length
+    @get('events').isUpcoming()
+
+  isVacant: ->
+    @get('events').isVacant()
 
