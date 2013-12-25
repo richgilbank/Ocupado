@@ -24,7 +24,7 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
 
     # Refetch every 10 minutes
     setInterval =>
-      @fetch()
+      @fetch.call(this)
     , 10 * 60 * 1000
     @
 
@@ -42,6 +42,9 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
     request.execute @fetchResponse
 
   fetchResponse: (resp) =>
+    @get('events').each (e) =>
+      @get('events').remove(e)
+    window[@get('name')] = this
     # Sets the room name
     @set 'name', resp.summary
 
@@ -50,7 +53,7 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
       if resp.items.length > 1
         @createEventModelFromEvent(resp.items[1])
 
-    @trigger 'change'
+    @trigger 'update'
 
   createEventModelFromEvent: (event) ->
     new Ocupado.Models.EventModel
@@ -72,7 +75,7 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
 
   percentComplete: ->
     if @isOccupied()
-      e = @get('events').first()
+      e = @get('events').sort().first()
       ((Date.now() - e.get('startDate')) / (e.get('endDate') - e.get('startDate'))) * 100
     else
       100

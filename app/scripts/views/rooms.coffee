@@ -16,6 +16,7 @@ class Ocupado.Views.RoomsView extends Backbone.View
   addRoom: (room) ->
     roomView = new Ocupado.Views.RoomView
       model: room
+      parentView: this
     @$el.append roomView.render().el
 
   resetRooms: (rooms) ->

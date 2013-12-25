@@ -7,12 +7,11 @@ class Ocupado.Views.RoomView extends Backbone.View
   tagName: 'section'
 
   initialize: ->
-    @listenTo @model, 'change', @render
-    @listenTo @model, 'change', @clearPolarClock
+    @listenTo @model, 'update', @render
     @render()
     setInterval =>
+      # @render()
       @partialRender()
-      @renderPolarClock()
     , 1000
 
   partialRender: ->
@@ -20,6 +19,7 @@ class Ocupado.Views.RoomView extends Backbone.View
     @renderPolarClock()
 
   render: ->
+    @clearPolarClock()
     @$el.html @template(@templateData())
     @$el.prop('class', '')
     if @model.isOccupied()
@@ -28,6 +28,8 @@ class Ocupado.Views.RoomView extends Backbone.View
       @$el.addClass('upcoming')
     else
       @$el.addClass('vacant')
+    @renderPolarClock()
+    @positionRoomStatus()
     @
 
   templateData: ->
@@ -36,49 +38,56 @@ class Ocupado.Views.RoomView extends Backbone.View
     vacant: @model.isVacant()
     timeRemaining: do => @timeRemaining()
     name: @model.get('name')
-    event: @model.get('events').first().toJSON() if not @model.isVacant()
+    event: @model.get('events').sort().first().toJSON() if not @model.isVacant()
 
   timeRemaining: ->
     unless @model.isVacant()
-      remaining = @model.get('events').first().timeRemaining
+      remaining = @model.get('events').sort().first().timeRemaining
       toReadableTime(remaining)
     else
       '00:00:00'
 
   initializeRaphael: ->
-    @canvasContainer = $("#canvas#{@model.get('name')}")
-    @maxRadius = _.min([@canvasContainer.width(), @canvasContainer.height()])/2 - 7
-    @arcPos = @maxRadius + 8
-    @paper = Raphael(
-      "canvas#{@model.get('name')}",
-      @maxRadius*2 + 15,
-      @maxRadius*2 + 15
-    )
-    @paper.customAttributes.arc = RaphaelArc
+    if $("#canvas#{@model.get('name')}").length
+      @canvasContainer = $("#canvas#{@model.get('name')}")
+      @maxRadius = _.min([@canvasContainer.width(), @canvasContainer.height()])/2 - 7
+      @arcPosX = @canvasContainer.width()/2
+      @arcPosY = @maxRadius + 8
+      @paper = Raphael(
+        "canvas#{@model.get('name')}",
+        @canvasContainer.width(),
+        @canvasContainer.height()
+      )
+      @paper.customAttributes.arc = RaphaelArc
 
-    bgColor = "#7e9c3d" if @model.isVacant()
-    bgColor = "#d5b430" if @model.isUpcoming()
-    bgColor = "#a03a3a" if @model.isOccupied()
+      bgColor = "#7e9c3d" if @model.isVacant()
+      bgColor = "#d5b430" if @model.isUpcoming()
+      bgColor = "#a03a3a" if @model.isOccupied()
 
-    @bgarc = @paper.path().attr
-      "stroke": bgColor
-      "stroke-width": 15
-      arc: [@arcPos, @arcPos, 100, 100, @maxRadius]
-
-    if @model.isOccupied()
-      @arc = @paper.path().attr
-        "stroke": "#f00"
+      @bgarc = @paper.path().attr
+        "stroke": bgColor
         "stroke-width": 15
-        arc: [@arcPos, @arcPos, 0, 100, @maxRadius]
+        arc: [@arcPosX, @arcPosY, 100, 100, @maxRadius]
+
+      # if @model.isOccupied()
+      @arc = @paper.path().attr
+        "stroke": "#fff"
+        "stroke-width": 15
+        arc: [@arcPosX, @arcPosY, 0, 100, @maxRadius]
 
   renderPolarClock: ->
-    if !@paper?
+    unless @paper?
       @initializeRaphael()
 
-    if @model.isOccupied()
+    if @paper? and @model.isOccupied()
       @arc.attr
-        arc: [@arcPos, @arcPos, @model.percentComplete(), 100, @maxRadius]
+        arc: [@arcPosX, @arcPosY, @model.percentComplete(), 100, @maxRadius]
 
   clearPolarClock: ->
-    @paper = undefined
+    @paper = null
+
+  positionRoomStatus: ->
+    w = $("#canvas#{@model.get('name')}").width()
+    @$el.find('.room-status-text').css
+      top: (w / 2 + 40) + 'px'
 

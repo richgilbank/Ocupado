@@ -3,6 +3,8 @@
 class Ocupado.Collections.EventsCollection extends Backbone.Collection
   model: Ocupado.Models.EventModel
 
+  comparator: 'startDate'
+
   isOccupied: ->
     @whereOccupied().length
 
