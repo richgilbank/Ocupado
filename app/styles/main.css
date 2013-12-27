@@ -33,3 +33,4 @@ img{width:110px;height:110px;border-radius:50%;position:absolute;z-index:10;left
 .upcoming{background:#3e3e3e;background:-webkit-gradient(linear,left top,left bottom,color-stop(28%,#3e3e3e),color-stop(60%,#343434));background:linear-gradient(to bottom,#3e3e3e 28%,#343434 60%);}
 .upcoming .up-next{text-align:center;font-size:18px}
 .vacant{background:#b5b44b;background:-webkit-gradient(linear,left top,left bottom,color-stop(28%,#b5b44b),color-stop(60%,#92b142));background:linear-gradient(to bottom,#b5b44b 28%,#92b142 60%);}
+#authorizeButton{background:#3d3d3d;color:#d5b430;border:none;border-radius:5px;padding:10px 20px;position:absolute;top:50%;margin-top:-35px;left:50%;margin-left:-105px;font-size:42px;font-family:'Raleway';font-weight:100}
