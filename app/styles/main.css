@@ -24,9 +24,9 @@ img{width:110px;height:110px;border-radius:50%;position:absolute;z-index:10;left
 .polar-clock-container{position:absolute;width:100%;height:50%;bottom:0;padding:0 50px 70px 50px;box-sizing:border-box}
 .room-status-text{position:absolute;top:50%;margin-top:-70px;left:0;font-size:43px;text-align:center;width:100%;text-shadow:0 -2px rgba(0,0,0,0.3)}
 .polar-clock{width:100%;height:100%}
-#OcupadoApp{display:flex;height:100%;align-items:stretch;overflow:hidden;}
+#OcupadoApp{display:-webkit-flex;display:flex;height:100%;align-items:stretch;overflow:hidden;}
 #OcupadoApp *{box-sizing:border-box}
-#OcupadoApp section{width:0;flex:1;position:relative;border-left:1px solid #000;}
+#OcupadoApp section{width:0;-webkit-flex:1;flex:1;position:relative;border-left:1px solid #000;}
 #OcupadoApp section:first-child{border-left:none}
 .occupied{background:#d86248;background:-webkit-gradient(linear,left top,left bottom,color-stop(28%,#d86248),color-stop(60%,#d44543));background:linear-gradient(to bottom,#d86248 28%,#d44543 60%);}
 .occupied .creator-name{font-size:18px;text-align:center;font-weight:400}

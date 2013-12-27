@@ -7,12 +7,15 @@ class Ocupado.Collections.RoomsCollection extends Backbone.Collection
     Ocupado.on 'ocupado:auth:calendarloaded', =>
       @initCalendarResources()
 
+  comparator: (model) ->
+    Ocupado.calendars.getSelectedResources().indexOf model.get('calendarId')
+
   initCalendarResources: ->
     $.when(Ocupado.calendars.deferredFetch).then =>
       @setupModels()
 
   setupModels: ->
-    _.each Ocupado.calendars.getSelectedCalendars(), (calendar) =>
+    _.each Ocupado.calendars.getSelectedCalendars().sort(), (calendar) =>
       @add
         calendarId: calendar.get('resourceId')
 

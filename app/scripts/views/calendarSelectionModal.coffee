@@ -9,6 +9,9 @@ class Ocupado.Views.CalendarSelectionModalView extends Backbone.View
     @animateModalEntering()
 
     @$el.find('input[type="checkbox"]').on 'change', @onCheckboxChange
+    @$el.find('.checkbox-group').sortable
+      forcePlaceholderSize: true
+    @$el.find('.checkbox-group').on 'sortupdate', @updateSortOrder
     @$el.on 'click', '.close-modal', @close
 
   render: ->
@@ -24,7 +27,7 @@ class Ocupado.Views.CalendarSelectionModalView extends Backbone.View
       @overlay.addClass 'active'
       @overlay.one 'webkitTransitionEnd transitionend', =>
         @modal.addClass 'active'
-    , 0
+    , 10
 
   close: =>
     @modal.removeClass 'active'
@@ -34,6 +37,13 @@ class Ocupado.Views.CalendarSelectionModalView extends Backbone.View
         @parentView.modal = null
         @remove()
         @unbind()
+
+  updateSortOrder: (e, ui) =>
+    sorted = _.map @$el.find('input[type="checkbox"]'), (e) ->
+      $(e).data('resourceid')
+    Ocupado.calendars.setSelectedResources(sorted)
+    Ocupado.roomsView.collection.reset()
+    Ocupado.roomsView.collection.setupModels()
 
   onCheckboxChange: (e) =>
     selectedArray = []

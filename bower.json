@@ -8,7 +8,9 @@
     "modernizr": "~2.6.2",
     "handlebars": "~1.1.2",
     "backbone-relational": "~0.8.6",
-    "raphael": "~2.1.2"
+    "raphael": "~2.1.2",
+    "html.sortable": "~0.1.0",
+    "fastclick": "~0.6.10"
   },
   "devDependencies": {}
 }
