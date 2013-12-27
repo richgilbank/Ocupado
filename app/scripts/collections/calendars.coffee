@@ -7,7 +7,6 @@ class Ocupado.Collections.CalendarCollection extends Backbone.Collection
     @deferredFetch = $.Deferred()
     Ocupado.on 'ocupado:auth:calendarloaded', =>
       @fetch(@deferredFetch).then (filtered) =>
-        @setSelectedResources _.map(filtered, (cal) -> cal.id)
         _.each filtered, (cal) =>
           @add
             color: cal.backgroundColor
