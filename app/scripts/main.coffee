@@ -12,8 +12,10 @@ window.Ocupado = _.extend
   Routers: {}
   init: ->
     'use strict'
-    new @Views.RoomsView
+    Ocupado.calendars = new @Collections.CalendarCollection()
+    Ocupado.roomsView = new @Views.RoomsView
       collection: new @Collections.RoomsCollection()
+    Ocupado.chromeView = new @Views.ChromeView()
 
 , Backbone.Events
 

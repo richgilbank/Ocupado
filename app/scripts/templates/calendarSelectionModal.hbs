@@ -1,0 +1,16 @@
+<div class="modal-overlay"></div>
+
+<div class="modal">
+  <h2>Rooms to display:</h2>
+  <a class="close-modal">&#10006;</a>
+  <hr />
+  <div class="checkbox-group">
+    {{#each cals}}
+    <label{{#unless this.isSelected}} class="inactive"{{/unless}}>
+      <div class="border-left" style="background-color:{{this.color}};"></div>
+      {{this.name}}
+      <input type="checkbox" {{#if this.isSelected}}checked{{/if}} data-resourceid="{{this.resourceId}}" />
+    </label>
+    {{/each}}
+  </div>
+</div>

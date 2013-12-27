@@ -8,24 +8,11 @@ class Ocupado.Collections.RoomsCollection extends Backbone.Collection
       @initCalendarResources()
 
   initCalendarResources: ->
-    if not getCalendarResources().length
-      @fetchCalendarResources().then (calendars) =>
-        setCalendarResources _.pluck(calendars, 'id')
-        @setupModels()
-    else
+    $.when(Ocupado.calendars.deferredFetch).then =>
       @setupModels()
 
   setupModels: ->
-    _.each getCalendarResources(), (calendar) =>
+    _.each Ocupado.calendars.getSelectedCalendars(), (calendar) =>
       @add
-        calendarId: calendar
-
-  fetchCalendarResources: () ->
-    deferred = $.Deferred()
-    request = gapi.client.calendar.calendarList.list({})
-    request.execute (calendars) ->
-      filtered = _.filter calendars.items, (calendar) ->
-        /resource\.calendar\.google\.com/.test calendar.id
-      deferred.resolve(filtered)
-    deferred.promise()
+        calendarId: calendar.get('resourceId')
 

@@ -160,9 +160,13 @@ module.exports = function (grunt) {
         stylus: {
             compile: {
                 options: {
+                    paths: [
+                        '<%= yeoman.app %>/styles/includes',
+                        '<%= yeoman.app %>/styles/rooms'
+                    ]
                 },
                 files: {
-                    '<%= yeoman.app %>/styles/main.css': ['<%= yeoman.app %>/styles/**/*.styl']
+                    '<%= yeoman.app %>/styles/main.css': ['<%= yeoman.app %>/styles/main.styl']
                 }
             }
         },

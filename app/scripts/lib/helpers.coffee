@@ -38,17 +38,3 @@ window.RaphaelArc = (xloc, yloc, value, total, R) ->
 
   path: path
 
-window.getCalendarResources = ->
-  resources = []
-  if Modernizr.localstorage and localStorage['ocupado.resources']?
-    storedResources = localStorage.getItem('ocupado.resources')
-    resources = resources.concat JSON.parse(storedResources)
-  resources
-
-window.setCalendarResources = (resources) ->
-  if Modernizr.localstorage
-    localStorage.setItem('ocupado.resources', JSON.stringify(resources))
-    true
-  else
-    false
-

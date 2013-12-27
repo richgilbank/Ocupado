@@ -3,6 +3,7 @@
 class Ocupado.Views.RoomsView extends Backbone.View
 
   el: '#OcupadoApp'
+  template: Ocupado.Templates['app/scripts/templates/rooms.hbs']
 
   initialize: ->
     @listenTo @collection, 'add', @addRoom
@@ -11,7 +12,6 @@ class Ocupado.Views.RoomsView extends Backbone.View
     Handlebars.registerPartial('occupied', Ocupado.Templates.occupied)
     Handlebars.registerPartial('upcoming', Ocupado.Templates.upcoming)
     Handlebars.registerPartial('vacant', Ocupado.Templates.vacant)
-    @render()
 
   addRoom: (room) ->
     roomView = new Ocupado.Views.RoomView
@@ -20,5 +20,6 @@ class Ocupado.Views.RoomsView extends Backbone.View
     @$el.append roomView.render().el
 
   resetRooms: (rooms) ->
+    @$el.html('')
     @collection.each @addRoom, @
 
