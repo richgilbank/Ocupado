@@ -4,6 +4,7 @@ class Ocupado.Views.RoomArcView extends Backbone.View
 
   initialize: ->
     @parentView = @options.parentView
+    @strokeWidth = 15
 
   initializeRaphael: ->
     @el = @parentView.$el.find('.polar-clock').get(0)
@@ -25,13 +26,12 @@ class Ocupado.Views.RoomArcView extends Backbone.View
 
       @bgarc = @paper.path().attr
         "stroke": bgColor
-        "stroke-width": 15
+        "stroke-width": @strokeWidth
         arc: [@arcPosX, @arcPosY, 100, 100, @maxRadius]
 
-      # if @model.isOccupied()
       @arc = @paper.path().attr
         "stroke": "#fff"
-        "stroke-width": 15
+        "stroke-width": @strokeWidth
         arc: [@arcPosX, @arcPosY, 0, 100, @maxRadius]
 
   render: ->

@@ -34,7 +34,7 @@ class Ocupado.Views.RoomView extends Backbone.View
     else
       @$el.addClass('vacant')
 
-    @positionRoomStatus()
+    @resizeContainers()
 
     @roomArcView.render() if @roomArcView?
 
@@ -55,8 +55,16 @@ class Ocupado.Views.RoomView extends Backbone.View
     else
       '00:00:00'
 
-  positionRoomStatus: ->
-    w = $("#canvas#{@model.get('name')}").width()
-    @$el.find('.room-status-text').css
-      top: (w / 2 + 40) + 'px'
+  resizeContainers: ->
+    w = @$el.width()
+
+    if w < 340
+      @$el.addClass 'small'
+      @roomArcView.strokeWidth = 5 if @roomArcView?
+    else
+      @$el.removeClass 'small'
+
+    st = @$el.find('.room-status-text')
+    p = st.siblings('.polar-clock')
+    @$el.find('.room-status-text').css('top', "#{p.width()/2 - st.height()/2}px")
 
