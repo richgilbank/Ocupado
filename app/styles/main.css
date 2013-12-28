@@ -8,6 +8,7 @@
 .checkbox-group{width:100%;}
 .checkbox-group .border-left{position:absolute;height:100%;width:10px;top:0;left:0;box-sizing:content-box !important;padding-bottom:1px}
 .checkbox-group label{display:block;padding:10px 10px 10px 20px;background:#f3f3f3;border-bottom:1px solid #ddd;position:relative;}
+.checkbox-group label.sortable-ghost{opacity:.3;border:1px dashed #777}
 .checkbox-group label.inactive{opacity:.5}
 .checkbox-group label:last-child{border-bottom:none;}
 .checkbox-group label:last-child .border-left{padding-bottom:0}
