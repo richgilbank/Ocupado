@@ -45,7 +45,7 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
     @get('events').each (e) =>
       @get('events').remove(e)
     # Sets the room name
-    @set 'name', resp.summary
+    @set 'name', resp.summary unless @get('name')?
 
     if resp.items?.length > 0
       @createEventModelFromEvent(resp.items[0])

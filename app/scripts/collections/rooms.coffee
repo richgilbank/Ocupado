@@ -5,7 +5,7 @@ class Ocupado.Collections.RoomsCollection extends Backbone.Collection
 
   initialize: ->
     Ocupado.on 'ocupado:auth:calendarloaded', =>
-      @initCalendarResources()
+      @initCalendarResources() unless @get('unAuthenticated')
 
   comparator: (model) ->
     Ocupado.calendars.getSelectedResources().indexOf model.get('calendarId')

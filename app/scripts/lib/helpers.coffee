@@ -24,6 +24,14 @@ Date.prototype.subtractHours = (h) ->
   @setHours @getHours() - h
   this
 
+Date.prototype.addSeconds = (s) ->
+  @setSeconds @getSeconds() + s
+  this
+
+Date.prototype.subtractSeconds = (s) ->
+  @setSeconds @getSeconds() - s
+  this
+
 window.RaphaelArc = (xloc, yloc, value, total, R) ->
   alpha = 360 / total * value
   a = (90 - alpha) * Math.PI / 180
