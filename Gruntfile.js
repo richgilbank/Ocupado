@@ -123,7 +123,9 @@ module.exports = function (grunt) {
             all: {
                 options: {
                     run: true,
-                    urls: ['http://localhost:<%= connect.test.options.port %>/test/index.html']
+                    urls: ['http://localhost:<%= connect.test.options.port %>/test/index.html'],
+                    timeout: 5000,
+                    bail: false
                 }
             }
         },
@@ -138,15 +140,18 @@ module.exports = function (grunt) {
                 }]
             },
             test: {
+                options: {
+                    bare: true
+                },
                 files: {
                     'test/spec/test.js': 'test/**/*.coffee',
+                    'test/spec/main.js': 'app/scripts/main.coffee',
                     'test/spec/app.js': [
-                        'app/scripts/main.coffee',
+                        '!app/scripts/main.coffee',
                         'app/scripts/lib/*.coffee',
-                        'app/scripts/models/*.coffee',
-                        'app/scripts/collections/*.coffee',
                         'app/scripts/views/*.coffee',
-                        'app/scripts/**/*.coffee'
+                        'app/scripts/models/*.coffee',
+                        'app/scripts/collections/*.coffee'
                      ]
                  }
             }

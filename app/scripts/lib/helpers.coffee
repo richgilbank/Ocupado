@@ -16,8 +16,12 @@ window.toReadableTime = (t) ->
   else
     "00:00:00"
 
-Date.prototype.addHours= (h) ->
-  @setHours this.getHours() + h
+Date.prototype.addHours = (h) ->
+  @setHours @getHours() + h
+  this
+
+Date.prototype.subtractHours = (h) ->
+  @setHours @getHours() - h
   this
 
 window.RaphaelArc = (xloc, yloc, value, total, R) ->

@@ -6,10 +6,10 @@ class Ocupado.Collections.EventsCollection extends Backbone.Collection
   comparator: 'startDate'
 
   isOccupied: ->
-    @whereOccupied().length
+    !!@whereOccupied().length
 
   isUpcoming: ->
-    @whereUpcoming().length
+    !!@whereUpcoming().length
 
   isVacant: ->
     !@isOccupied() and !@isUpcoming()

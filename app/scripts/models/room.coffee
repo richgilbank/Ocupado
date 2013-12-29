@@ -12,15 +12,15 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
   relations: [
     type: Backbone.HasMany
     key: 'events'
-    relatedModel: Ocupado.Models.EventModel
-    collectionType: Ocupado.Collections.EventsCollection
+    relatedModel: 'Ocupado.Models.EventModel'
+    collectionType: 'Ocupado.Collections.EventsCollection'
     includeInJSON: true
     reverseRelation:
       key: 'room'
   ]
 
   initialize: ->
-    @fetch()
+    @fetch() unless @get('unAuthenticated')
 
     # Refetch every 10 minutes
     setInterval =>
@@ -44,7 +44,6 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
   fetchResponse: (resp) =>
     @get('events').each (e) =>
       @get('events').remove(e)
-    window[@get('name')] = this
     # Sets the room name
     @set 'name', resp.summary
 
@@ -65,13 +64,19 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
       room: this
 
   isOccupied: ->
+    return false unless @hasEvents()
     @get('events').isOccupied()
 
   isUpcoming: ->
+    return false unless @hasEvents()
     @get('events').isUpcoming() and !@isOccupied()
 
   isVacant: ->
+    return true unless @hasEvents()
     @get('events').isVacant() and !@isOccupied() and !@isUpcoming()
+
+  hasEvents: ->
+    !!@get('events').length
 
   percentComplete: ->
     if @isOccupied()
