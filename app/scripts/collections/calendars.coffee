@@ -12,7 +12,7 @@ class Ocupado.Collections.CalendarCollection extends Backbone.Collection
             color: cal.backgroundColor
             resourceId: cal.id
             name: cal.summary
-        @getSelectedResources()
+        @setSelectedResources(_.pluck(filtered, 'id')) unless @getSelectedResources().length
 
   comparator: (model) ->
     Ocupado.calendars.getSelectedResources().indexOf model.get('resourceId')
@@ -21,17 +21,15 @@ class Ocupado.Collections.CalendarCollection extends Backbone.Collection
     request = gapi.client.calendar.calendarList.list({})
     request.execute (calendars) =>
       filtered = _.filter calendars.items, (calendar) ->
-        /resource\.calendar\.google\.com/.test calendar.id
+        /@(resource|group)\.calendar\.google\.com$/.test calendar.id
       deferred.resolve(filtered)
     deferred.promise()
 
   getSelectedResources: ->
-    if not localStorage.getItem('ocupado.selectedResources')?
-      resourceIds = JSON.stringify(@pluck('resourceId'))
-      localStorage.setItem('ocupado.selectedResources', resourceIds) if resourceIds.length
-      resourceIds
-    else if localStorage['ocupado.selectedResources']?
+    if localStorage['ocupado.selectedResources']?
       JSON.parse(localStorage.getItem('ocupado.selectedResources'))
+    else
+      []
 
   setSelectedResources: (resources) ->
     localStorage.setItem('ocupado.selectedResources', JSON.stringify(resources))
