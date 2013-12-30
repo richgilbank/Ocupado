@@ -1,7 +1,5 @@
 # Ocupado
 
-
-----------
 ### About
 This project was initially intended to be a simple meeting room status display to visualize which rooms were free, time remaining until the next booking, and time remaining in an occurring meeting, based off the Google Calendar API. This was designed by @luccast and developed by @gavinsmith and myself (@richgilbank).
 
