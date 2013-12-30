@@ -18,7 +18,7 @@ The first version was hacked together in 2 days in CoffeeScript using [Middleman
  - [Bower](http://bower.io/)
 
 ### Running it
-To run it, you must have Node.js installed on your system. `cd` into the directory you cloned the repo into. From there, you'll need to install grunt and a few other things, which can be done with `npm install -g`. You'll also need to pull the bower dependencies, with `bower install`.
+To run it, you must have Node.js installed on your system. `cd` into the directory you cloned the repo into. From there, you'll need to install grunt and a few other things, which can be done with `npm install -g`. You'll also need to pull the bower dependencies, with `bower install`. To run the tests, you will also need to run `bower install` from the `test` directory.
 
 `grunt server` will start the server on port 9000, from where you will have to authenticate using the Google account you use to access your meeting rooms.
 
