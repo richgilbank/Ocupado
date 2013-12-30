@@ -24,12 +24,12 @@ Date.prototype.subtractHours = (h) ->
   @setHours @getHours() - h
   this
 
-Date.prototype.addSeconds = (s) ->
-  @setSeconds @getSeconds() + s
+Date.prototype.addMilliseconds = (s) ->
+  @setMilliseconds @getMilliseconds() + s
   this
 
-Date.prototype.subtractSeconds = (s) ->
-  @setSeconds @getSeconds() - s
+Date.prototype.subtractMilliseconds = (s) ->
+  @setMilliseconds @getMilliseconds() - s
   this
 
 window.RaphaelArc = (xloc, yloc, value, total, R) ->

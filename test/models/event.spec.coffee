@@ -20,7 +20,7 @@ describe 'Event Model', ->
 
   it 'should trigger event:end when complete', (done) ->
     endingSoonAttrs = _.extend Fixtures.OccurringEvent(@Room),
-     endDate: (new Date()).addSeconds(1)
+     endDate: (new Date()).addMilliseconds(20)
     event = new Ocupado.Models.EventModel endingSoonAttrs
     event.on 'event:end', ->
       assert.isTrue true, 'event fired'
@@ -28,7 +28,7 @@ describe 'Event Model', ->
 
   it 'should trigger event:start when it begins', (done) ->
     upcomingAttrs = _.extend Fixtures.UpcomingEvent(@Room),
-      startDate: (new Date()).addSeconds(1)
+      startDate: (new Date()).addMilliseconds(20)
     event = new Ocupado.Models.EventModel upcomingAttrs
     event.on 'event:start', ->
       assert.isTrue true, 'event fired'
