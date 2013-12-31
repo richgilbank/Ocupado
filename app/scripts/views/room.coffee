@@ -18,26 +18,18 @@ class Ocupado.Views.RoomView extends Backbone.View
       @partialRender()
     , 1000
 
+  attributes: ->
+    class: if @model.isOccupied() then 'occupied' else if @model.isUpcoming() then 'upcoming' else 'vacant'
+
   partialRender: ->
     @$el.find('.time-remaining').text(@timeRemaining())
     @roomArcView.render()
 
   render: ->
     @roomArcView.clearPolarClock() if @roomArcView?
-
     @$el.html @template(@templateData())
-    @$el.prop('class', '')
-    if @model.isOccupied()
-      @$el.addClass('occupied')
-    else if @model.isUpcoming()
-      @$el.addClass('upcoming')
-    else
-      @$el.addClass('vacant')
-
     @resizeContainers()
-
     @roomArcView.render() if @roomArcView?
-
     @
 
   templateData: ->
