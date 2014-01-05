@@ -1,4 +1,5 @@
 window.Ocupado = _.extend
+  env: if _ENV? then _ENV else 'development'
   config:
     clientId: '65475530667.apps.googleusercontent.com'
     apiKey: 'AIzaSyD8ZlE3oF6jOelOFr56heE8FC6Sk3UkiVo'

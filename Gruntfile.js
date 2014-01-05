@@ -182,6 +182,16 @@ module.exports = function (grunt) {
         dirs: ['<%= yeoman.dist %>']
       }
     },
+    uglify: {
+      dist: {
+        options: {
+          banner: "window._ENV='production';"
+        },
+        files: {
+          'dist/scripts/main.js': ['dist/scripts/main.js']
+        }
+      }
+    },
     imagemin: {
       dist: {
         files: [{
@@ -315,7 +325,7 @@ module.exports = function (grunt) {
     'htmlmin',
     'concat',
     'stylus:compile',
-    'uglify',
+    'uglify:dist',
     'copy',
     'rev',
     'usemin'
