@@ -57,21 +57,30 @@
 .checkbox-group
   width 100%
 
-  .border-left
+  .draggable-handle
     position absolute
     height 100%
-    width 10px
+    width 20px
     top 0
     left 0
-    box-sizing content-box !important
-    padding-bottom 1px
+    font-size 22px
+    font-family Times New Roman, serif
+    line-height 6px
+    padding 7px 0 0 12px
+    color #bbb
+    text-shadow 0 -1px 1px #fff
+    box-sizing border-box
 
   label
     display block
-    padding 10px 10px 10px 20px
+    padding 10px 10px 10px 70px
     background #f3f3f3
     border-bottom 1px solid #ddd
     position relative
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    padding 10px 30px 10px 40px
 
     &.sortable-ghost
       opacity 0.3
@@ -86,5 +95,6 @@
        padding-bottom 0
 
   input[type=checkbox]
-    float right
+    position absolute
+    right 5px
 

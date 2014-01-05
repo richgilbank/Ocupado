@@ -7,7 +7,8 @@
   <div class="checkbox-group">
     {{#each cals}}
     <label{{#unless this.isSelected}} class="inactive"{{/unless}}>
-      <div class="border-left" style="background-color:{{this.color}};"></div>
+      <div class="draggable-handle" style="border-left: 5px solid
+        {{this.color}};">..<br>..</div>
       {{this.name}}
       <input type="checkbox" {{#if this.isSelected}}checked{{/if}} data-resourceid="{{this.resourceId}}" />
     </label>

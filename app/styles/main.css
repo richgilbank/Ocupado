@@ -6,13 +6,13 @@
 .modal .close-modal{position:absolute;top:0;right:0;font-size:22px;padding:20px;cursor:pointer}
 .modal hr{height:1px;border:none;background:#ccc;margin-bottom:20px;margin-top:-5px}
 .checkbox-group{width:100%;}
-.checkbox-group .border-left{position:absolute;height:100%;width:10px;top:0;left:0;box-sizing:content-box !important;padding-bottom:1px}
-.checkbox-group label{display:block;padding:10px 10px 10px 20px;background:#f3f3f3;border-bottom:1px solid #ddd;position:relative;}
+.checkbox-group .draggable-handle{position:absolute;height:100%;width:20px;top:0;left:0;font-size:22px;font-family:Times New Roman,serif;line-height:6px;padding:7px 0 0 12px;color:#bbb;text-shadow:0 -1px 1px #fff;box-sizing:border-box}
+.checkbox-group label{display:block;padding:10px 10px 10px 70px;background:#f3f3f3;border-bottom:1px solid #ddd;position:relative;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding:10px 30px 10px 40px;}
 .checkbox-group label.sortable-ghost{opacity:.3;border:1px dashed #777}
 .checkbox-group label.inactive{opacity:.5}
 .checkbox-group label:last-child{border-bottom:none;}
 .checkbox-group label:last-child .border-left{padding-bottom:0}
-.checkbox-group input[type=checkbox]{float:right}
+.checkbox-group input[type=checkbox]{position:absolute;right:5px}
 @font-face{font-family:entypo;font-style:normal;font-weight:normal;src:url("../fonts/entypo.woff") format('woff'),url("../fonts/entypo.ttf") format('truetype'),url("../fonts/entypo.svg#font") format('svg')}
 .icon-clock{font-family:entypo;font-size:42px;text-align:center;margin-top:37px}
 .icon-person{font-family:entypo;font-size:30px}

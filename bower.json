@@ -9,7 +9,8 @@
     "handlebars": "~1.1.2",
     "backbone-relational": "~0.8.6",
     "raphael": "~2.1.2",
-    "fastclick": "~0.6.10"
+    "fastclick": "~0.6.10",
+    "Sortable": "~0.1.5"
   },
   "devDependencies": {}
 }
