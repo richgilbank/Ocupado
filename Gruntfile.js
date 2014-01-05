@@ -285,10 +285,11 @@ module.exports = function (grunt) {
       'stylus:compile',
       'handlebars',
       'connect:livereload',
-      'watch:coffee',
-      'watch:livereload',
-      'watch:jst',
-      'watch:stylus'
+      'watch'
+      // 'watch:coffee',
+      // 'watch:livereload',
+      // 'watch:jst',
+      // 'watch:stylus'
     ]);
 
   });

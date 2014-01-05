@@ -68,9 +68,11 @@ img
   height 100%
 
 #OcupadoApp
+  display -webkit-box
   display -webkit-flex
   display flex
   height 100%
+  -webkit-box-pack justify
   align-items stretch
   overflow hidden
   *
@@ -79,6 +81,8 @@ img
 
   section
     width 0
+    box-flex 1
+    -webkit-box-flex 1
     -webkit-flex 1
     flex 1
     position relative
