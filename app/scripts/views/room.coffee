@@ -23,11 +23,15 @@ class Ocupado.Views.RoomView extends Backbone.View
 
   partialRender: ->
     @$el.find('.time-remaining').text(@timeRemaining())
+    @resizeContainers()
+    @roomArcView.clearPolarClock() if @roomArcView?
     @roomArcView.render()
 
   render: ->
     @roomArcView.clearPolarClock() if @roomArcView?
     @$el.html @template(@templateData())
+    @$el.attr _.extend({}, _.result(this, 'attributes'))
+
     @resizeContainers()
     @roomArcView.render() if @roomArcView?
     @
@@ -55,8 +59,10 @@ class Ocupado.Views.RoomView extends Backbone.View
       @roomArcView.strokeWidth = 5 if @roomArcView?
     else
       @$el.removeClass 'small'
+      @roomArcView.strokeWidth = 15 if @roomArcView?
 
     st = @$el.find('.room-status-text')
     p = st.siblings('.polar-clock')
-    @$el.find('.room-status-text').css('top', "#{p.width()/2 - st.height()/2}px")
+    center = Math.min(p.width(), p.height())/2 - st.height()/2
+    @$el.find('.room-status-text').css('top', "#{center}px")
 

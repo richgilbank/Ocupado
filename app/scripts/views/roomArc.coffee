@@ -43,5 +43,8 @@ class Ocupado.Views.RoomArcView extends Backbone.View
         arc: [@arcPosX, @arcPosY, @model.percentComplete(), 100, @maxRadius]
 
   clearPolarClock: ->
-    @paper = null
+    if @paper?
+      @paper.clear()
+      @paper.remove()
+      @paper = null
 

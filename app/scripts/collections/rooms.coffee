@@ -6,6 +6,7 @@ class Ocupado.Collections.RoomsCollection extends Backbone.Collection
   initialize: ->
     Ocupado.on 'ocupado:auth:calendarloaded', =>
       @initCalendarResources() unless @get('unAuthenticated')
+    Ocupado.fetch = => @fetchAll()
 
   comparator: (model) ->
     Ocupado.calendars.getSelectedResources().indexOf model.get('calendarId')
@@ -18,4 +19,8 @@ class Ocupado.Collections.RoomsCollection extends Backbone.Collection
     _.each Ocupado.calendars.getSelectedCalendars().sort(), (calendar) =>
       @add
         calendarId: calendar.get('resourceId')
+
+  fetchAll: ->
+    console.log 'triggering', @
+    @trigger 'fetchAll'
 

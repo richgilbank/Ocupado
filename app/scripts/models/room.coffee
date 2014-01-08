@@ -21,6 +21,7 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
 
   initialize: ->
     @fetch() unless @get('unAuthenticated')
+    @collection.on 'fetchAll', @fetch, @
 
     # Refetch every 10 minutes
     setInterval =>
@@ -44,7 +45,6 @@ class Ocupado.Models.RoomModel extends Backbone.RelationalModel
   fetchResponse: (resp) =>
     @get('events').each (e) =>
       @get('events').remove(e)
-    # Sets the room name
     @set 'name', resp.summary unless @get('name').length
 
     if resp.items?.length > 0
