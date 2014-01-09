@@ -21,6 +21,5 @@ class Ocupado.Collections.RoomsCollection extends Backbone.Collection
         calendarId: calendar.get('resourceId')
 
   fetchAll: ->
-    console.log 'triggering', @
     @trigger 'fetchAll'
 
