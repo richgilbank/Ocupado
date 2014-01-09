@@ -28,8 +28,9 @@ class Ocupado.Views.CalendarSelectionModalView extends Backbone.View
   animateModalEntering: ->
     setTimeout =>
       @overlay.addClass 'active'
-      @overlay.one 'webkitTransitionEnd transitionend', =>
+      setTimeout =>
         @modal.addClass 'active'
+      , 300
     , 10
 
   close: =>
