@@ -15,7 +15,7 @@ module.exports = function (grunt) {
   // configurable paths
   var yeomanConfig = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist/www'
   };
 
   grunt.initConfig({
@@ -115,8 +115,8 @@ module.exports = function (grunt) {
       all: [
         'Gruntfile.js',
         '<%= yeoman.app %>/scripts/{,*/}*.js',
-        '!<%= yeoman.app %>/scripts/vendor/*'
-        // 'test/spec/{,*/}*.js'
+        '!<%= yeoman.app %>/scripts/vendor/*',
+        'test/spec/{,*/}*.js'
       ]
     },
     mocha: {
@@ -185,10 +185,21 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         options: {
+          mangle: false
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.dist %>/scripts',
+          src: '**/*.js',
+          dest: '<%= yeoman.dist %>/scripts/'
+        }]
+      },
+      env: {
+        options: {
           banner: "window._ENV='production';"
         },
         files: {
-          'dist/scripts/main.js': ['dist/scripts/main.js']
+          '<%= yeoman.dist %>/scripts/main.js': ['<%= yeoman.dist %>/scripts/main.js']
         }
       }
     },
@@ -236,6 +247,9 @@ module.exports = function (grunt) {
             'images/{,*/}*.{webp,gif}',
             'fonts/{,*/}*.*',
           ]
+        },{
+          dest: '<%= yeoman.dist %>/config.xml',
+          src: ['dist/config.xml']
         }]
       }
     },
@@ -272,6 +286,26 @@ module.exports = function (grunt) {
           ]
         }
       }
+    },
+    shell: {
+      android: {
+        command: 'cordova run android',
+        options: {
+          stdout: true,
+          execOptions: {
+            cwd: '<%= yeoman.dist %>'
+          }
+        }
+      },
+      ios: {
+        command: 'cordova emulate ios',
+        options: {
+          stdout: true,
+          execOptions: {
+            cwd: '<%= yeoman.dist %>'
+          }
+        }
+      }
     }
   });
 
@@ -305,7 +339,7 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('test', function(){
+  grunt.registerTask('test', function(target){
     grunt.task.run([
       'clean:server',
       'coffee:test',
@@ -316,21 +350,24 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('build', [
-    'clean:dist',
-    'coffee',
-    'jshint',
-    'handlebars',
-    'useminPrepare',
-    'imagemin',
-    'htmlmin',
-    'concat',
-    'stylus:compile',
-    'uglify:dist',
-    'copy',
-    'rev',
-    'usemin'
-  ]);
+  grunt.registerTask('build', function(target){
+    grunt.task.run([
+      'clean:dist',
+      'coffee',
+      'handlebars',
+      'useminPrepare',
+      'imagemin',
+      'htmlmin',
+      'concat',
+      'stylus:compile',
+      'uglify:dist',
+      'uglify:env',
+      'copy',
+      'rev',
+      'usemin',
+      target ? 'shell:' + target : 'shell:android'
+    ]);
+  });
 
   grunt.registerTask('default', [
     'jshint',

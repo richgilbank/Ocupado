@@ -1,8 +1,16 @@
 node_modules
-dist
+dist/www
 test/temp
 .sass-cache
 app/bower_components
 .tmp
 test/bower_components/
 test/spec
+
+dist/platforms/android/bin
+dist/platforms/android/gen
+dist/platforms/android/CordovaLib/bin
+dist/platforms/android/CordovaLib/gen
+dist/platforms/android/assets/www
+dist/platforms/ios/cordova/console.log
+dist/platforms/ios/www/
