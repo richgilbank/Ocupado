@@ -7,7 +7,7 @@ class Ocupado.Views.ChromeView extends Backbone.View
 
   initialize: ->
     @render()
-    Ocupado.on 'ocupado:auth:success', =>
+    $.when(Ocupado.calendars.dfdCalendarsLoaded).then =>
       @$el.show()
       @$el.on 'click', '#calendarMenuBtn', @onMenuClick
 

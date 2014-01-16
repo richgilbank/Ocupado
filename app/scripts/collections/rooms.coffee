@@ -4,15 +4,14 @@ class Ocupado.Collections.RoomsCollection extends Backbone.Collection
   model: Ocupado.Models.RoomModel
 
   initialize: ->
-    Ocupado.on 'ocupado:auth:calendarloaded', =>
-      @initCalendarResources() unless @get('unAuthenticated')
+    @initCalendarResources() unless @get('unAuthenticated')
     Ocupado.fetch = => @fetchAll()
 
   comparator: (model) ->
     Ocupado.calendars.getSelectedResources().indexOf model.get('calendarId')
 
   initCalendarResources: ->
-    $.when(Ocupado.calendars.deferredFetch).then =>
+    $.when(Ocupado.calendars.dfdCalendarsLoaded.promise()).then =>
       @setupModels()
 
   setupModels: ->
