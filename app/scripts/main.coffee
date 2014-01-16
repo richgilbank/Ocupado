@@ -8,7 +8,9 @@ window.Ocupado = _.extend
   config:
     clientId: '65475530667-fliq4pdj73bdk1tenuq59dak5v2isic5.apps.googleusercontent.com'
     clientSecret: 'RUHUSETB3IONIzns_zGwCNVf'
-    redirectUri: 'urn:ietf:wg:oauth:2.0:oob'
+    redirectUri: 'http://localhost'
+    webClientId: '65475530667.apps.googleusercontent.com'
+    webApiKey: 'AIzaSyD8ZlE3oF6jOelOFr56heE8FC6Sk3UkiVo'
     scope: 'https://www.googleapis.com/auth/calendar'
 
   Models: {}
@@ -31,5 +33,8 @@ if Ocupado.env is 'production'
   $ ->
     $.when(clientLoaded.promise(), deviceReady.promise(), calendarApiLoaded.promise()).then(Ocupado.init)
 else
-  $ -> Ocupado.init()
+  $ ->
+    $.when(clientLoaded.promise()).then ->
+    $.when(calendarApiLoaded.promise()).then ->
+    $.when(clientLoaded.promise(), calendarApiLoaded.promise()).then(Ocupado.init)
 

@@ -5,26 +5,32 @@ window.handleClientLoad = ->
   clientLoaded.resolve()
 
 $ ->
-  $.when(clientLoaded.promise(), deviceReady.promise()).then ->
-    if Ocupado.Auth.tokenIsAvailable()
-      $('#authorizeButton').hide()
-      dfd = Ocupado.Auth.getToken()
-      dfd.done (token) ->
-        Ocupado.Auth.setToken token
-      gapi.client.load 'calendar', 'v3', Ocupado.Auth.calendarLoaded
-    else
-      $('#authorizeButton').show().on 'click', ->
-        Ocupado.Auth.authorize
-          client_id: Ocupado.config.clientId
-          client_secret: Ocupado.config.clientSecret
-          redirect_uri: 'http://localhost'
-          scope: Ocupado.config.scope
-        .done (token) ->
-          $('#authorizeButton').hide()
+  if Ocupado.env is 'production'
+    $.when(clientLoaded.promise(), deviceReady.promise()).then ->
+      if Ocupado.Auth.tokenIsAvailable()
+        $('#authorizeButton').hide()
+        dfd = Ocupado.Auth.getToken()
+        dfd.done (token) ->
           Ocupado.Auth.setToken token
-          gapi.client.load 'calendar', 'v3', Ocupado.Auth.calendarLoaded
-        .fail (data) ->
-          alert 'Auth failed'
+        gapi.client.load 'calendar', 'v3', Ocupado.Auth.calendarLoaded
+      else
+        $('#authorizeButton').show().on 'click', ->
+          Ocupado.Auth.authorize
+            client_id: Ocupado.config.clientId
+            client_secret: Ocupado.config.clientSecret
+            redirect_uri: Ocupado.config.redirectUri
+            scope: Ocupado.config.scope
+          .done (token) ->
+            $('#authorizeButton').hide()
+            Ocupado.Auth.setToken token
+            gapi.client.load 'calendar', 'v3', Ocupado.Auth.calendarLoaded
+          .fail (data) ->
+            alert 'Auth failed'
+  else
+    $.when(clientLoaded.promise()).then ->
+      gapi.client.setApiKey Ocupado.config.webApiKey
+      setTimeout Ocupado.Auth.checkAuth, 1
+
 
 window.Ocupado.Auth =
   authorize: (options) ->
@@ -64,11 +70,37 @@ window.Ocupado.Auth =
     deferred.promise()
 
   checkAuth: ->
-    localStorage.access_token? && localStorage.refresh_token?
+    if Ocupado.env is 'production'
+      localStorage.access_token? && localStorage.refresh_token?
+    else
+      gapi.auth.authorize
+        client_id: Ocupado.config.webClientId
+        scope: Ocupado.config.scope
+        immediate: true
+      , Ocupado.Auth.handleAuthResult
 
   calendarLoaded: ->
     calendarApiLoaded.resolve()
     Ocupado.trigger 'ocupado:auth:calendarloaded'
+
+  handleAuthResult: (authResult) ->
+    authBtn = $('#authorizeButton')
+    if authResult and not authResult.error
+      #Success
+      $(authBtn).hide()
+      Ocupado.trigger 'ocupado:auth:success'
+      gapi.client.load 'calendar', 'v3', Ocupado.Auth.calendarLoaded
+    else
+      $(authBtn).show().click Ocupado.Auth.handleAuthClick
+      Ocupado.trigger 'ocupado:auth:failure'
+
+  handleAuthClick: ->
+    gapi.auth.authorize
+      client_id: Ocupado.config.webClientId
+      scope: Ocupado.config.scope
+      immediate: false
+    , Ocupado.Auth.handleAuthResult
+    false
 
   setToken: (token) ->
     gapi.auth.setToken token
