@@ -22,6 +22,9 @@ package com.richgilbank.ocupado;
 import android.os.Bundle;
 import org.apache.cordova.*;
 
+import android.view.WindowManager;
+import android.view.Window;
+
 public class Ocupado extends CordovaActivity 
 {
     @Override
@@ -29,6 +32,7 @@ public class Ocupado extends CordovaActivity
     {
         super.onCreate(savedInstanceState);
         super.init();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         // Set by <content src="index.html" /> in config.xml
         super.loadUrl(Config.getStartUrl());
         //super.loadUrl("file:///android_asset/www/index.html")
