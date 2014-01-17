@@ -11,8 +11,7 @@ $ ->
         $('#authorizeButton').hide()
         dfd = Ocupado.Auth.getToken()
         dfd.done (token) ->
-          Ocupado.Auth.setToken token
-        gapi.client.load 'calendar', 'v3', Ocupado.Auth.calendarLoaded
+          gapi.client.load 'calendar', 'v3', Ocupado.Auth.calendarLoaded
       else
         $('#authorizeButton').show().on 'click', ->
           Ocupado.Auth.authorize
@@ -26,6 +25,8 @@ $ ->
             gapi.client.load 'calendar', 'v3', Ocupado.Auth.calendarLoaded
           .fail (data) ->
             alert 'Auth failed'
+      # Get a new token every 45 minutes
+      setInterval Ocupado.Auth.getToken, 45 * 60 * 1000
   else
     $.when(clientLoaded.promise()).then ->
       gapi.client.setApiKey Ocupado.config.webApiKey
@@ -122,7 +123,9 @@ window.Ocupado.Auth =
     dfd = $.Deferred()
     now = new Date().getTime()
 
-    if now < localStorage.expires_at
+    if now < localStorage.expires_at - (45 * 60 * 1000)
+      gapi.auth.setToken
+        access_token: localStorage.access_token
       dfd.resolve
         access_token: localStorage.access_token
     else if localStorage.refresh_token
@@ -138,5 +141,6 @@ window.Ocupado.Auth =
         dfd.reject(response.responseJSON)
     else
       dfd.reject()
+    $.when(dfd.promise()).then Ocupado.fetch
     dfd.promise()
 
