@@ -31,6 +31,9 @@ $ ->
       gapi.client.setApiKey Ocupado.config.webApiKey
       setTimeout Ocupado.Auth.checkAuth, 1
 
+    # Refresh the token every 45 mins
+    setInterval Ocupado.Auth.checkAuth, 45 * 60 * 1000
+
 
 window.Ocupado.Auth =
   authorize: (options) ->
