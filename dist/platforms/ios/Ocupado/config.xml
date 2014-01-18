@@ -20,6 +20,8 @@
         <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
     <name>Ocupado</name>
+    <name>Ocupado</name>
+    <name>Ocupado</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>

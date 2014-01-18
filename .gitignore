@@ -15,3 +15,4 @@ dist/platforms/android/assets/www
 dist/platforms/ios/cordova/console.log
 dist/platforms/ios/www/
 dist/platforms/ios/Ocupado.xcodeproj/project.xcworkspace/xcuserdata
+dist/platforms/ios/CordovaLib/CordovaLib.xcodeproj/xcuserdata/
