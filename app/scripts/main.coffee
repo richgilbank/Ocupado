@@ -10,7 +10,7 @@ window.Ocupado = _.extend
     clientSecret: 'RUHUSETB3IONIzns_zGwCNVf'
     redirectUri: 'http://localhost'
     webClientId: '65475530667.apps.googleusercontent.com'
-    webApiKey: 'AIzaSyD8ZlE3oF6jOelOFr56heE8FC6Sk3UkiVo'
+    webApiKey: 'AIzaSyDlo7Z2IJ7Ilbo0PoerU6b0dMNLEsyS-DA'
     scope: 'https://www.googleapis.com/auth/calendar'
 
   Models: {}
