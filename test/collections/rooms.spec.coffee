@@ -3,14 +3,13 @@
 
 describe 'Rooms Collection', ->
 
-  beforeEach (done) ->
-    $ =>
-      @Rooms = new Ocupado.Collections.RoomsCollection [],
-        unAuthenticated: true
-      # Stub out localstorage accessor
-      Ocupado.calendars.getSelectedResources = ->
-        [Fixtures.Calendars.ca, Fixtures.Calendars.us]
-      done()
+  beforeEach ->
+    @Rooms = new Ocupado.Collections.RoomsCollection [],
+      unAuthenticated: true
+    # Stub out localstorage accessor
+    Ocupado.calendars = {}
+    Ocupado.calendars.getSelectedResources = ->
+      [Fixtures.Calendars.ca, Fixtures.Calendars.us]
 
   it 'should sort calendars by the order in localstorage', ->
     # Add rooms in reverse order to what localstorage would serve
