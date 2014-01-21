@@ -30,11 +30,7 @@ window.Ocupado = _.extend
 
 
 if Ocupado.env is 'production'
-  $ ->
-    $.when(clientLoaded.promise(), deviceReady.promise(), calendarApiLoaded.promise()).then(Ocupado.init)
+  $ -> $.when(clientLoaded.promise(), deviceReady.promise(), calendarApiLoaded.promise()).then(Ocupado.init)
 else
-  $ ->
-    $.when(clientLoaded.promise()).then ->
-    $.when(calendarApiLoaded.promise()).then ->
-    $.when(clientLoaded.promise(), calendarApiLoaded.promise()).then(Ocupado.init)
+  $ -> $.when(clientLoaded.promise(), calendarApiLoaded.promise()).then(Ocupado.init)
 
