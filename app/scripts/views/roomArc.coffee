@@ -10,7 +10,7 @@ class Ocupado.Views.RoomArcView extends Backbone.View
     @el = @parentView.$el.find('.polar-clock').get(0)
     @$el = $(@el)
     if @$el?
-      @maxRadius = _.min([@$el.width(), @$el.height()])/2 - 7
+      @maxRadius = _.min([@$el.width(), @$el.height()])/2 - 10
       @arcPosX = @$el.width()/2
       @arcPosY = @maxRadius + 8
       @paper = Raphael(
